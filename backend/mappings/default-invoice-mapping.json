@@ -1,0 +1,63 @@
+{
+  "_comment": "Matches the official gflohr/e-invoice-eu default-corrected-invoice.ods template. All indices are 0-based. Column letter → 0-based index: A=0 B=1 D=3 F=5 I=8 J=9 L=11 M=12 N=13 O=14 P=15. Section column is L(11); absolute cell positions derived from YAML mapping + ODS content.xml.",
+  "sheet": "Invoice",
+  "fields": {
+    "invoiceId":            { "col": 14, "row": 11 },
+    "issueDate":            { "col":  8, "row":  5 },
+    "dueDate":              { "col":  8, "row": 11 },
+    "currencyCode":         { "col": 14, "row": 10 },
+    "typeCode":             { "col": 12, "row": 18 },
+    "buyerReference":       { "col":  8, "row": 10 },
+    "precedingInvoiceId":   { "col": 14, "row": 12 },
+    "precedingInvoiceDate": { "col": 15, "row": 12 },
+
+    "invoicePeriodStart":   { "col":  8, "row":  6 },
+    "invoicePeriodEnd":     { "col":  8, "row":  7 },
+
+    "delivery": {
+      "actualDeliveryDate": { "col":  8, "row":  7 }
+    },
+
+    "seller": {
+      "name":             { "col": 14, "row":  0 },
+      "street":           { "col": 14, "row":  1 },
+      "postalCode":       { "col": 14, "row":  2 },
+      "city":             { "col": 14, "row":  3 },
+      "country":          { "col": 14, "row":  4 },
+      "vatNumber":        { "col": 14, "row":  5 },
+      "registration":     { "col": 14, "row":  0 },
+      "contactName":      { "col":  8, "row": 13 },
+      "contactEmail":     { "col":  8, "row": 14 },
+      "contactPhone":     { "col":  8, "row": 15 },
+      "endpointSchemeId": "9930"
+    },
+
+    "buyer": {
+      "name":             { "col":  0, "row":  6 },
+      "street":           { "col": 14, "row":  6 },
+      "postalCode":       { "col": 14, "row":  7 },
+      "city":             { "col": 14, "row":  8 },
+      "country":          { "col": 14, "row":  9 },
+      "vatNumber":        { "col":  8, "row":  8 },
+      "registration":     { "col":  0, "row":  0 },
+      "endpointSchemeId": "9930"
+    },
+
+    "payment": {
+      "iban":         { "col": 14, "row": 14 },
+      "bic":          { "col": 14, "row": 15 },
+      "paymentTerms": { "col":  0, "row": 46 }
+    },
+
+    "lineItemsStartRow": 22,
+    "lineItemColumns": {
+      "description": 1,
+      "quantity":    3,
+      "unit":       12,
+      "unitPrice":   5,
+      "vatRate":    14,
+      "netAmount":   9,
+      "taxCategory": 13
+    }
+  }
+}
