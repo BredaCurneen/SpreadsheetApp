@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import convertRouter from './routes/convert.route';
+import facturxRouter from './routes/facturx.route';
 import { errorMiddleware } from './middleware/error.middleware';
 import { logger } from './utils/logger';
 
@@ -15,6 +16,7 @@ app.use(express.json());
 
 // ── Routes ────────────────────────────────────────────────────────────────────
 app.use('/api', convertRouter);
+app.use('/api', facturxRouter);
 
 app.get('/health', (_req, res) => res.json({ status: 'ok' }));
 

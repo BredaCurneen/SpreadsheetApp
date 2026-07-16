@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable, from, of, throwError } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
 
 export interface ValidationError {
   code: string;
@@ -38,5 +38,25 @@ export class InvoiceService {
         return throwError(() => new Error(message));
       }),
     );
+  }
+
+  generateFacturXPdf(xml: string): Observable<Blob> {
+    return this.http
+      .post(`${this.apiBase}/facturx/pdf`, { xml }, { responseType: 'blob' })
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          // With responseType 'blob', JSON error bodies also arrive as a Blob — read it back out.
+          if (err.error instanceof Blob && err.error.type.includes('json')) {
+            return from(err.error.text()).pipe(
+              switchMap((text) => {
+                const message = JSON.parse(text)?.message ?? `Server error (HTTP ${err.status})`;
+                return throwError(() => new Error(message));
+              }),
+            );
+          }
+          const message = err.message ?? `Server error (HTTP ${err.status})`;
+          return throwError(() => new Error(message));
+        }),
+      );
   }
 }
