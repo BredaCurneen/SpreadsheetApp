@@ -9,6 +9,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
     <nav class="tab-nav">
       <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Convert to UBL</a>
       <a routerLink="/facturx" routerLinkActive="active">Factur-X PDF</a>
+      <a routerLink="/pdf-extract" routerLinkActive="active">Extract XML from PDF</a>
     </nav>
     <router-outlet />
   `,
