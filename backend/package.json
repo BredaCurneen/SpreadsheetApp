@@ -9,6 +9,7 @@
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts"
   },
   "dependencies": {
+    "@e-invoice-eu/core": "^3.1.1",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "fast-xml-parser": "^5.10.1",

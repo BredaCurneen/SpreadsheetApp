@@ -297,6 +297,22 @@ function buildCiiXml(invoice: InvoiceData): string {
       .txt(toCiiDate(invoice.delivery.actualDeliveryDate));
   }
 
+  // BR-IC-12: when a K (intra-community supply) line is present, the Deliver-to
+  // country code (BT-80) must not be blank. Source it from the spreadsheet's
+  // "Deliver To Country" column (invoice.delivery.countryCode), falling back to
+  // the seller's country, then "IE", so the invoice never fails this rule.
+  const hasIntraCommunitySupply = invoice.lines.some(
+    (line) => (line.taxCategory ?? (line.vatRate > 0 ? 'S' : 'Z')) === 'K',
+  );
+  if (hasIntraCommunitySupply) {
+    const deliverToCountry = invoice.delivery?.countryCode || invoice.seller.countryCode || 'IE';
+    deliveryEl
+      .ele('ram:ShipToTradeParty')
+      .ele('ram:PostalTradeAddress')
+      .ele('ram:CountryID')
+      .txt(deliverToCountry);
+  }
+
   const settlement = transaction.ele('ram:ApplicableHeaderTradeSettlement');
   settlement.ele('ram:InvoiceCurrencyCode').txt(invoice.currencyCode);
 

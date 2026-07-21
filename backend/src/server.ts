@@ -3,6 +3,7 @@ import cors from 'cors';
 import convertRouter from './routes/convert.route';
 import facturxRouter from './routes/facturx.route';
 import pdfExtractRouter from './routes/pdf-extract.route';
+import xrechnungRouter from './routes/xrechnung.route';
 import { errorMiddleware } from './middleware/error.middleware';
 import { logger } from './utils/logger';
 
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use('/api', convertRouter);
 app.use('/api', facturxRouter);
 app.use('/api', pdfExtractRouter);
+app.use('/api', xrechnungRouter);
 
 app.get('/health', (_req, res) => res.json({ status: 'ok' }));
 

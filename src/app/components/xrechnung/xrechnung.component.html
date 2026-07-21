@@ -1,0 +1,143 @@
+<div class="page">
+
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="3" width="18" height="18" rx="3" fill="#6366f1"/>
+          <path d="M7 9h10M7 12h6M7 15h8" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <span>Spreadsheet → XRechnung</span>
+      </div>
+      <span class="badge">EN16931 · XRechnung 3.0</span>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Upload card -->
+    <section class="card upload-card">
+      <h2 class="card-title">Generate XRechnung XML</h2>
+      <p class="card-subtitle">
+        Upload an <strong>.xlsx</strong>, <strong>.ods</strong>, or <strong>.csv</strong> invoice file.
+        The app converts it to UBL XML, then generates <strong>XRechnung</strong> XML
+        (EN16931, CII syntax) using the <code>@e-invoice-eu/core</code> library.
+      </p>
+
+      <div
+        class="drop-zone"
+        [class.has-file]="selectedFile()"
+        (drop)="onDrop($event)"
+        (dragover)="onDragOver($event)"
+        (click)="fileInput.click()"
+        role="button"
+        tabindex="0"
+        (keydown.enter)="fileInput.click()"
+      >
+        <input
+          #fileInput
+          type="file"
+          hidden
+          [accept]="acceptedTypes"
+          (change)="onFileSelected($event)"
+        />
+        @if (selectedFile()) {
+          <div class="file-info">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"
+                stroke="#6366f1" stroke-width="1.5" fill="none"/>
+              <path d="M14 2v6h6" stroke="#6366f1" stroke-width="1.5" fill="none"/>
+            </svg>
+            <div>
+              <p class="file-name">{{ selectedFile()!.name }}</p>
+              <p class="file-size">{{ (selectedFile()!.size / 1024).toFixed(1) }} KB</p>
+            </div>
+          </div>
+        } @else {
+          <div class="drop-prompt">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round"/>
+              <polyline points="17 8 12 3 7 8" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <line x1="12" y1="3" x2="12" y2="15" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <p>Drop file here or <span class="link">browse</span></p>
+            <p class="hint">.xlsx · .ods · .csv · max 10 MB</p>
+          </div>
+        }
+      </div>
+
+      <button
+        class="btn btn-primary"
+        [disabled]="!selectedFile() || isConverting()"
+        (click)="convert()"
+      >
+        @if (isConverting()) {
+          <span class="spinner"></span> Converting…
+        } @else {
+          Convert to XML
+        }
+      </button>
+    </section>
+
+    <!-- Results -->
+    @if (ublXml() || errors().length > 0 || errorMessage()) {
+      <section class="card result-card">
+
+        @if (errors().length > 0) {
+          <div class="alert alert-error">
+            <h3>Validation failed — {{ errors().length }} error{{ errors().length !== 1 ? 's' : '' }}</h3>
+            <ul class="error-list">
+              @for (e of errors(); track e.code + e.message) {
+                <li [class]="'error-item error-' + e.severity">
+                  <span class="error-code">{{ e.code }}</span>
+                  <span class="error-msg">{{ e.message }}</span>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+
+        @if (errorMessage()) {
+          <div class="alert alert-error">
+            <h3>Error</h3>
+            <p>{{ errorMessage() }}</p>
+          </div>
+        }
+
+        @if (ublXml()) {
+          <div class="xml-section">
+            <div class="xml-header">
+              <span class="xml-label">UBL XML ready</span>
+              <button
+                class="btn btn-sm btn-primary"
+                [disabled]="isGenerating()"
+                (click)="generateXRechnung()"
+              >
+                @if (isGenerating()) {
+                  <span class="spinner"></span> Generating XRechnung…
+                } @else {
+                  Generate XRechnung XML
+                }
+              </button>
+            </div>
+          </div>
+        }
+
+        @if (xrechnungXml()) {
+          <div class="xml-section xrechnung-preview">
+            <div class="xml-header">
+              <span class="xml-label">XRechnung XML (EN16931 · CII)</span>
+              <div class="xml-actions">
+                <button class="btn btn-sm" (click)="copyXml()">Copy</button>
+                <button class="btn btn-sm btn-primary" (click)="downloadXml()">Download XML</button>
+              </div>
+            </div>
+            <pre class="xml-preview"><code>{{ xrechnungXml() }}</code></pre>
+          </div>
+        }
+
+      </section>
+    }
+
+  </main>
+</div>

@@ -1,0 +1,296 @@
+/* ── Page layout ─────────────────────────────────────────────────────────── */
+.page {
+  min-height: 100vh;
+  background: #f8fafc;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ── Header ─────────────────────────────────────────────────────────────── */
+.header {
+  background: #fff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 0 1.5rem;
+}
+.header-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #1e293b;
+}
+.badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  background: #ede9fe;
+  color: #6d28d9;
+  padding: 0.25rem 0.6rem;
+  border-radius: 99px;
+  text-transform: uppercase;
+}
+
+/* ── Main ────────────────────────────────────────────────────────────────── */
+.main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* ── Cards ───────────────────────────────────────────────────────────────── */
+.card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.75rem;
+}
+.card-title {
+  margin: 0 0 0.4rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+.card-subtitle {
+  margin: 0 0 1.5rem;
+  font-size: 0.875rem;
+  color: #64748b;
+  line-height: 1.6;
+}
+.card-subtitle code {
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  background: rgba(0,0,0,0.06);
+  padding: 0.05rem 0.3rem;
+  border-radius: 4px;
+  font-size: 0.8em;
+}
+
+/* ── Drop zone ───────────────────────────────────────────────────────────── */
+.drop-zone {
+  border: 2px dashed #cbd5e1;
+  border-radius: 10px;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  margin-bottom: 1.25rem;
+  user-select: none;
+}
+.drop-zone:hover,
+.drop-zone:focus {
+  border-color: #6366f1;
+  background: #f5f3ff;
+  outline: none;
+}
+.drop-zone.has-file {
+  border-color: #6366f1;
+  background: #fafafa;
+}
+.drop-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+.drop-prompt p {
+  margin: 0;
+  color: #475569;
+  font-size: 0.9rem;
+}
+.drop-prompt .hint {
+  color: #94a3b8;
+  font-size: 0.8rem;
+}
+.link {
+  color: #6366f1;
+  font-weight: 500;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.file-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+}
+.file-info > div {
+  text-align: left;
+}
+.file-name {
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 0.2rem;
+  font-size: 0.9rem;
+}
+.file-size {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  color: #374151;
+  transition: background 0.12s, border-color 0.12s, color 0.12s;
+}
+.btn:hover:not(:disabled) {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+.btn.btn-primary {
+  background: #6366f1;
+  border-color: #6366f1;
+  color: #fff;
+  width: 100%;
+  justify-content: center;
+  padding: 0.65rem 1.5rem;
+  font-size: 0.9375rem;
+}
+.btn.btn-primary:hover:not(:disabled) {
+  background: #4f46e5;
+  border-color: #4f46e5;
+}
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.btn.btn-sm {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8125rem;
+  width: auto;
+}
+
+/* ── Spinner ─────────────────────────────────────────────────────────────── */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Alerts ──────────────────────────────────────────────────────────────── */
+.alert {
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.25rem;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+.alert h3 {
+  margin: 0 0 0.6rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #dc2626;
+}
+
+/* ── Error list ──────────────────────────────────────────────────────────── */
+.error-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.error-item {
+  font-size: 0.8125rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+.error-code {
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  font-weight: 700;
+  font-size: 0.75rem;
+  background: rgba(0,0,0,0.07);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.error-msg {
+  color: inherit;
+}
+
+/* ── XML output ──────────────────────────────────────────────────────────── */
+.xml-section {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.xml-section + .xml-section {
+  margin-top: 1rem;
+}
+.xml-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.65rem 1rem;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+.xrechnung-preview .xml-header {
+  border-bottom: 1px solid #e2e8f0;
+}
+.xml-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #475569;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.xml-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+.xml-preview {
+  margin: 0;
+  padding: 1rem;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  overflow-x: auto;
+  max-height: 460px;
+  overflow-y: auto;
+  white-space: pre;
+}
+.xml-preview code {
+  font-family: inherit;
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 540px) {
+  .main { padding: 1rem 1rem 3rem; }
+  .card { padding: 1.25rem; }
+  .xml-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+}

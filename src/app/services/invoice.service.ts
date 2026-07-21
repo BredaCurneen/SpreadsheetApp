@@ -81,4 +81,23 @@ export class InvoiceService {
         }),
       );
   }
+
+  generateXRechnung(xml: string): Observable<string> {
+    return this.http
+      .post(`${this.apiBase}/xrechnung/generate`, { xml }, { responseType: 'text' })
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          // With responseType 'text', JSON error bodies arrive as a raw string — parse it back out.
+          let message = err.message ?? `Server error (HTTP ${err.status})`;
+          if (typeof err.error === 'string') {
+            try {
+              message = JSON.parse(err.error)?.message ?? message;
+            } catch {
+              // err.error wasn't JSON — fall back to the default message above.
+            }
+          }
+          return throwError(() => new Error(message));
+        }),
+      );
+  }
 }
