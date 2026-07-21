@@ -100,4 +100,24 @@ export class InvoiceService {
         }),
       );
   }
+
+  generateZugferdPdf(xml: string): Observable<Blob> {
+    return this.http
+      .post(`${this.apiBase}/zugferd/generate`, { xml }, { responseType: 'blob' })
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          // With responseType 'blob', JSON error bodies also arrive as a Blob — read it back out.
+          if (err.error instanceof Blob && err.error.type.includes('json')) {
+            return from(err.error.text()).pipe(
+              switchMap((text) => {
+                const message = JSON.parse(text)?.message ?? `Server error (HTTP ${err.status})`;
+                return throwError(() => new Error(message));
+              }),
+            );
+          }
+          const message = err.message ?? `Server error (HTTP ${err.status})`;
+          return throwError(() => new Error(message));
+        }),
+      );
+  }
 }
