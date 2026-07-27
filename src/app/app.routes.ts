@@ -4,6 +4,7 @@ import { FacturxComponent } from './components/facturx/facturx.component';
 import { PdfExtractComponent } from './components/pdf-extract/pdf-extract.component';
 import { XRechnungComponent } from './components/xrechnung/xrechnung.component';
 import { ZugferdComponent } from './components/zugferd/zugferd.component';
+import { CiiComponent } from './components/cii/cii.component';
 
 export const routes: Routes = [
   { path: '', component: UploadComponent },
@@ -11,5 +12,6 @@ export const routes: Routes = [
   { path: 'pdf-extract', component: PdfExtractComponent },
   { path: 'xrechnung', component: XRechnungComponent },
   { path: 'zugferd', component: ZugferdComponent },
+  { path: 'cii', component: CiiComponent },
   { path: '**', redirectTo: '' },
 ];

@@ -12,6 +12,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
       <a routerLink="/pdf-extract" routerLinkActive="active">Extract XML from PDF</a>
       <a routerLink="/xrechnung" routerLinkActive="active">XRechnung</a>
       <a routerLink="/zugferd" routerLinkActive="active">ZUGFeRD PDF</a>
+      <a routerLink="/cii" routerLinkActive="active">CII XML</a>
     </nav>
     <router-outlet />
   `,

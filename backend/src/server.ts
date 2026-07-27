@@ -5,6 +5,7 @@ import facturxRouter from './routes/facturx.route';
 import pdfExtractRouter from './routes/pdf-extract.route';
 import xrechnungRouter from './routes/xrechnung.route';
 import zugferdRouter from './routes/zugferd.route';
+import ciiRouter from './routes/cii.route';
 import { errorMiddleware } from './middleware/error.middleware';
 import { logger } from './utils/logger';
 
@@ -23,6 +24,7 @@ app.use('/api', facturxRouter);
 app.use('/api', pdfExtractRouter);
 app.use('/api', xrechnungRouter);
 app.use('/api', zugferdRouter);
+app.use('/api', ciiRouter);
 
 app.get('/health', (_req, res) => res.json({ status: 'ok' }));
 
